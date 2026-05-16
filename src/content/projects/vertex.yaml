@@ -1,8 +1,9 @@
 title: VERTEX
-runtime: 12min
+runtime: 42min
 posterUrl: /projects/vertex/posterUrl.webp
 stills:
   - /projects/vertex/stills/0.webp
+  - /projects/vertex/stills/1.webp
 bts: []
 en:
   type: Animation
