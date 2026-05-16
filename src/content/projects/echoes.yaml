@@ -1,8 +1,8 @@
 title: 'ECHOES - Dies ist ein Test '
 runtime: 15min
-posterUrl: /projects/flugge-2/posterUrl.webp
 stills: []
-bts: []
+bts:
+  - /projects/echoes/bts/0.webp
 en:
   type: Shortfilm
   genre: Sci-Fi
