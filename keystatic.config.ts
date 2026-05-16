@@ -18,7 +18,7 @@ export default config({
         runtime: fields.text({ label: 'Runtime (e.g. 15min)' }),
         posterUrl: fields.image({ 
           label: 'Poster Image',
-          directory: 'public/images/projects',
+          directory: '/public/images/projects',
           publicPath: '/images/projects',
           validation: { isRequired: false }
         }),
@@ -29,7 +29,7 @@ export default config({
         stills: fields.array(
           fields.image({ 
             label: 'Image',
-            directory: 'public/images/projects',
+            directory: '/public/images/projects',
             publicPath: '/images/projects'
           }), {
           label: 'Stills Images'
@@ -37,7 +37,7 @@ export default config({
         bts: fields.array(
           fields.image({ 
             label: 'Image',
-            directory: 'public/images/projects',
+            directory: '/public/images/projects',
             publicPath: '/images/projects'
           }), {
           label: 'Behind The Scenes Images'
