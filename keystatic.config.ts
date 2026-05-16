@@ -18,8 +18,8 @@ export default config({
         runtime: fields.text({ label: 'Runtime (e.g. 15min)' }),
         posterUrl: fields.image({ 
           label: 'Poster Image',
-          directory: '/public/images/projects',
-          publicPath: '/images/projects',
+          directory: 'public/projects',
+          publicPath: '/projects',
           validation: { isRequired: false }
         }),
         crewUnitedUrl: fields.text({ label: 'Crew United URL' }),
@@ -29,16 +29,16 @@ export default config({
         stills: fields.array(
           fields.image({ 
             label: 'Image',
-            directory: '/public/images/projects',
-            publicPath: '/images/projects'
+            directory: 'public/projects',
+            publicPath: '/projects'
           }), {
           label: 'Stills Images'
         }),
         bts: fields.array(
           fields.image({ 
             label: 'Image',
-            directory: '/public/images/projects',
-            publicPath: '/images/projects'
+            directory: 'public/projects',
+            publicPath: '/projects'
           }), {
           label: 'Behind The Scenes Images'
         }),
