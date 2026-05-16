@@ -1,0 +1,15 @@
+title: NEON
+runtime: 100min
+stills: []
+bts:
+  - /projects/neon/bts/0.webp
+en:
+  type: Shortfilm
+  genre: Cyberpunk
+  synopsis: Fifth film.
+de:
+  type: Kurzfilm
+  genre: Cyberpunk
+  synopsis: Fünfter Film.
+crewEn: []
+crewDe: []
