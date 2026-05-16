@@ -1,0 +1,81 @@
+---
+import "@/styles/global.css"
+import Grainient from "@/components/Grainient"
+
+interface Props {
+  lang?: "en" | "de"
+  title?: string
+}
+
+const { lang = "en", title = "WILL IT GRAIN" } = Astro.props
+---
+
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Cinematic filmmaking, commercial, and documentary production."
+    />
+    <title>{title}</title>
+
+    <!-- Snipcart Setup -->
+    <link rel="preconnect" href="https://app.snipcart.com" />
+    <link rel="preconnect" href="https://cdn.snipcart.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css"
+    />
+  </head>
+  <body
+    class="relative min-h-screen overflow-x-hidden bg-[#0a0a0a] text-[#e5e5e5] antialiased selection:bg-white/20"
+  >
+    <div class="pointer-events-none fixed inset-0 z-0">
+      <Grainient
+        client:load
+        color1="#858585"
+        color2="#525252"
+        color3="#363636"
+        timeSpeed={0.25}
+        colorBalance={0}
+        warpStrength={1}
+        warpFrequency={5}
+        warpSpeed={2}
+        warpAmplitude={50}
+        blendAngle={0}
+        blendSoftness={0.05}
+        rotationAmount={500}
+        noiseScale={2}
+        grainAmount={0.1}
+        grainScale={2}
+        grainAnimated={false}
+        contrast={1.5}
+        gamma={1}
+        saturation={1}
+        centerX={0}
+        centerY={0}
+        zoom={0.9}
+      />
+    </div>
+
+    <main
+      class="relative z-10 flex min-h-screen w-full flex-col pt-[4vh] pb-[4vh]"
+    >
+      <slot />
+    </main>
+
+    <!-- Snipcart Settings -->
+    <script
+      async
+      src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+    <div
+      hidden
+      id="snipcart"
+      data-api-key="ZTFjNjlkZTItNDQ3NC00MjgwLTgxYTUtNDA4NDdlODJlNGYwNjM5MTQ1NDk1NTYzOTQ5NzEw"
+      data-config-modal-style="side"
+    >
+    </div>
+  </body>
+</html>

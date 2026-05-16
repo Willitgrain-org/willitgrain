@@ -1,0 +1,15 @@
+title: 'ECHOES - Dies ist ein Test '
+runtime: 15min
+posterUrl: /projects/flugge/flugge-plakat.webp
+stills: []
+bts: []
+en:
+  type: Shortfilm
+  genre: Sci-Fi
+  synopsis: Another shortfilm.
+de:
+  type: Kurzfilm
+  genre: Sci-Fi
+  synopsis: Ein weiterer Kurzfilm.
+crewEn: []
+crewDe: []

@@ -1,0 +1,11 @@
+title: "NEON"
+runtime: "22min"
+posterUrl: "/projects/flugge/flugge-plakat.webp"
+en:
+  type: "Shortfilm"
+  genre: "Cyberpunk"
+  synopsis: "Fifth film."
+de:
+  type: "Kurzfilm"
+  genre: "Cyberpunk"
+  synopsis: "Fünfter Film."

@@ -1,0 +1,20 @@
+title: VERTEX
+runtime: 12min
+posterUrl: /images/projects/vertex/posterUrl.webp
+stills:
+  - /images/projects/vertex/stills/0.webp
+bts: []
+en:
+  type: Animation
+  genre: Abstract
+  synopsis: 'Fourth shortfilm. das kommt von keystatic '
+de:
+  type: Animation
+  genre: Abstrakt
+  synopsis: Vierter Kurzfilm.
+crewEn:
+  - role: Eine Rolle
+    name: Hans Alfred
+  - role: Zweite Rolle
+    name: Gerhard
+crewDe: []

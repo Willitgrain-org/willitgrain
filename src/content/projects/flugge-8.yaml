@@ -1,0 +1,11 @@
+title: "DRIFT"
+runtime: "10min"
+posterUrl: "/projects/flugge/flugge-plakat.webp"
+en:
+  type: "Shortfilm"
+  genre: "Drama"
+  synopsis: "Eighth film."
+de:
+  type: "Kurzfilm"
+  genre: "Drama"
+  synopsis: "Achter Film."

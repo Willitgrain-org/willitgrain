@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/main.astro"
+import { Header } from "@/components/Header"
+import { HomeGallery } from "@/components/HomeGallery"
+import { Footer } from "@/components/Footer"
+import { getCollection } from "astro:content"
+
+const allProjects = await getCollection('projects')
+---
+
+<Layout lang="en">
+  <Header lang="en" client:load />
+  <HomeGallery lang="en" projects={allProjects} client:load />
+  <Footer lang="en" client:load />
+</Layout>

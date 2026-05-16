@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/main.astro"
+import { Header } from "@/components/Header"
+import { HomeGallery } from "@/components/HomeGallery"
+import { Footer } from "@/components/Footer"
+import { getCollection } from "astro:content"
+
+const allProjects = await getCollection('projects')
+---
+
+<Layout lang="de" title="WILL IT GRAIN - Filmproduktion">
+  <Header lang="de" client:load />
+  <HomeGallery lang="de" projects={allProjects} client:load />
+  <Footer lang="de" client:load />
+</Layout>
