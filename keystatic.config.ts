@@ -5,7 +5,7 @@ export default config({
     ? { kind: 'local' }
     : {
         kind: 'github',
-        repo: 'Lucaskolinger/willitgrain',
+        repo: 'Willitgrain-org/willitgrain',
       },
   collections: {
     projects: collection({
