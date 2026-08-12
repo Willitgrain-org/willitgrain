@@ -2,8 +2,10 @@ title: THAW
 runtime: 10min
 posterUrl: /projects/thaw/posterUrl.webp
 crewUnitedUrl: https://www.crew-united.com/en/Thaw__328055.html#!searchterm=THAW
-stills: []
-bts: []
+stills:
+  - /projects/thaw/stills/0.webp
+bts:
+  - /projects/thaw/bts/0.webp
 en: {}
 de: {}
 crewEn: []
