@@ -2,8 +2,10 @@ title: DISCOVER BETTER SLEEP
 posterUrl: /projects/discover-better-sleep/posterUrl.webp
 crewUnitedUrl: >-
   https://www.crew-united.com/en/Black-Roll-Recovery-Base-Dream-On__344427.html#!searchterm=DREAM%20ON
-stills: []
-bts: []
+stills:
+  - /projects/discover-better-sleep/stills/0.webp
+bts:
+  - /projects/discover-better-sleep/bts/0.webp
 en: {}
 de: {}
 crewEn: []
