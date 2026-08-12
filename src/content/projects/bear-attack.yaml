@@ -1,7 +1,9 @@
 title: BEAR ATTACK
 posterUrl: /projects/bear-attack/posterUrl.webp
-stills: []
-bts: []
+stills:
+  - /projects/bear-attack/stills/0.webp
+bts:
+  - /projects/bear-attack/bts/0.webp
 en: {}
 de: {}
 crewEn: []
