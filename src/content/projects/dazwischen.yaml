@@ -1,7 +1,9 @@
 title: DAZWISCHEN
 posterUrl: /projects/dazwischen/posterUrl.webp
-stills: []
-bts: []
+stills:
+  - /projects/dazwischen/stills/0.webp
+bts:
+  - /projects/dazwischen/bts/0.webp
 en: {}
 de: {}
 crewEn: []
