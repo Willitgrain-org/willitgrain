@@ -3,8 +3,10 @@ runtime: 12min
 posterUrl: /projects/maennlein/posterUrl.webp
 crewUnitedUrl: >-
   https://www.crew-united.com/en/Ein-Maennlein-steht-im-Walde-ganz-still-und-stumm__359665.html#!searchterm=m%C3%A4nnlein
-stills: []
-bts: []
+stills:
+  - /projects/maennlein/stills/0.webp
+bts:
+  - /projects/maennlein/bts/0.webp
 en: {}
 de: {}
 crewEn: []
