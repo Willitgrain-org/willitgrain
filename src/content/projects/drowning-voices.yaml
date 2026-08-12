@@ -1,7 +1,9 @@
 title: DROWNING VOICES
 posterUrl: /projects/drowning-voices/posterUrl.webp
-stills: []
-bts: []
+stills:
+  - /projects/drowning-voices/stills/0.webp
+bts:
+  - /projects/drowning-voices/bts/0.webp
 en: {}
 de: {}
 crewEn: []
