@@ -1,4 +1,5 @@
 title: Auf Der Kippe
+runtime: 3min
 posterUrl: /projects/auf-der-kippe/posterUrl.webp
 stills:
   - /projects/auf-der-kippe/stills/0.webp
@@ -33,7 +34,17 @@ bts:
   - /projects/auf-der-kippe/bts/2.webp
   - /projects/auf-der-kippe/bts/3.webp
   - /projects/auf-der-kippe/bts/4.webp
-en: {}
-de: {}
+en:
+  type: Shortfilm
+  genre: Drama
+  synopsis: >-
+    To rediscover his own voice, an actor must break away from the script on an
+    open stage.
+de:
+  type: Kurzfilm
+  genre: Drama
+  synopsis: >-
+    Um seine eigene Stimme wiederzufinden, muss sich ein Schauspieler auf
+    offener Bühne von seinem Skript lösen.
 crewEn: []
 crewDe: []
