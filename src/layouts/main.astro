@@ -1,6 +1,5 @@
 ---
 import "@/styles/global.css"
-import Grainient from "@/components/Grainient"
 
 interface Props {
   lang?: "en" | "de"
@@ -8,6 +7,16 @@ interface Props {
 }
 
 const { lang = "en", title = "WILL IT GRAIN" } = Astro.props
+
+// Stop-motion grain background: pre-rendered grain frames cycled via CSS.
+const grainFrames = [
+  "/background/WG_BG_1-compressed.webp",
+  "/background/WG_BG_2-compressed.webp",
+  "/background/WG_BG_3-compressed.webp",
+  "/background/WG_BG_4-compressed.webp",
+  "/background/WG_BG_5-compressed.webp",
+]
+const grainFrameDurationMs = 100
 ---
 
 <html lang={lang} class="dark">
@@ -32,32 +41,13 @@ const { lang = "en", title = "WILL IT GRAIN" } = Astro.props
   <body
     class="relative min-h-screen overflow-x-hidden bg-[#0a0a0a] text-[#e5e5e5] antialiased selection:bg-white/20"
   >
-    <div class="pointer-events-none fixed inset-0 z-0">
-      <Grainient
-        client:load
-        color1="#000000"
-        color2="#504f4d"
-        color3="#000000"
-        timeSpeed={0.05}
-        colorBalance={-0.81}
-        warpStrength={1.25}
-        warpFrequency={10.5}
-        warpSpeed={0.8}
-        warpAmplitude={18}
-        blendAngle={89}
-        blendSoftness={0.72}
-        rotationAmount={200}
-        noiseScale={1.45}
-        grainAmount={0.1}
-        grainScale={3.9}
-        grainAnimated={false}
-        contrast={1.3}
-        gamma={1}
-        saturation={1}
-        centerX={0}
-        centerY={0}
-        zoom={1.3}
-      />
+    <div class="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+      {grainFrames.map((src, i) => (
+        <div
+          class="grain-layer"
+          style={`background-image: url("${src}"); animation-duration: ${grainFrames.length * grainFrameDurationMs}ms; animation-delay: ${i * grainFrameDurationMs}ms;`}
+        />
+      ))}
     </div>
 
     <main
