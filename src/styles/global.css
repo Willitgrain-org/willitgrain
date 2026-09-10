@@ -145,30 +145,62 @@
   }
 }
 
-/* Stop-motion grain background.
-   One layer is visible at a time (20% of the cycle each = 1 frame of 5).
-   Duration & delay are set inline from the frame count in main.astro. */
-.grain-layer {
+/* Animated film-grain background: a single seamless noise tile, tiled over an
+   oversized layer and shifted in discrete steps (GPU-composited transform).
+   Grain intensity is tuned via opacity. */
+.grain {
   position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  animation-name: grain-cycle;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("/background/grain-tile.webp");
+  background-repeat: repeat;
+  opacity: 0.15; /* höher = kräftigeres Grain */
+  animation: grain-shift 1s steps(10) infinite;
+  will-change: transform;
 }
 
-@keyframes grain-cycle {
+@keyframes grain-shift {
   0%,
-  20% {
-    opacity: 1;
+  100% {
+    transform: translate(0, 0);
   }
 
-  20.01%,
-  100% {
-    opacity: 0;
+  10% {
+    transform: translate(-5%, -10%);
+  }
+
+  20% {
+    transform: translate(-15%, 5%);
+  }
+
+  30% {
+    transform: translate(7%, -25%);
+  }
+
+  40% {
+    transform: translate(-5%, 25%);
+  }
+
+  50% {
+    transform: translate(-15%, 10%);
+  }
+
+  60% {
+    transform: translate(15%, 0%);
+  }
+
+  70% {
+    transform: translate(0%, 15%);
+  }
+
+  80% {
+    transform: translate(3%, 35%);
+  }
+
+  90% {
+    transform: translate(-10%, 10%);
   }
 }
 
