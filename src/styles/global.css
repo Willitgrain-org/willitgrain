@@ -145,9 +145,23 @@
   }
 }
 
-/* Animated film-grain background: a single seamless noise tile, tiled over an
-   oversized layer and shifted in discrete steps (GPU-composited transform).
-   Grain intensity is tuned via opacity. */
+/* Animated film-grain background.
+   - .grain-bg: tonal base (subtle gray gradient, like the old WebGL)
+   - .grain--fine: fine noise tile, fast discrete jumps (the grain flicker)
+   - .grain--coarse: coarser noise, slow smooth drift (depth/motion)
+   Translate values stay <= 20% so the 200% layer never reveals its edge. */
+.grain-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      120% 80% at 50% 40%,
+      rgba(80, 79, 77, 0.4) 0%,
+      rgba(80, 79, 77, 0) 65%
+    ),
+    #0a0a0a;
+}
+
 .grain {
   position: absolute;
   top: -50%;
@@ -156,9 +170,18 @@
   height: 200%;
   background-image: url("/background/grain-tile.webp");
   background-repeat: repeat;
+  will-change: transform;
+}
+
+.grain--fine {
   opacity: 0.15; /* höher = kräftigeres Grain */
   animation: grain-shift 1s steps(10) infinite;
-  will-change: transform;
+}
+
+.grain--coarse {
+  opacity: 0.08;
+  background-size: 1024px 1024px;
+  animation: grain-drift 14s linear infinite;
 }
 
 @keyframes grain-shift {
@@ -168,39 +191,61 @@
   }
 
   10% {
-    transform: translate(-5%, -10%);
+    transform: translate(-5%, -8%);
   }
 
   20% {
-    transform: translate(-15%, 5%);
+    transform: translate(-12%, 4%);
   }
 
   30% {
-    transform: translate(7%, -25%);
+    transform: translate(6%, -15%);
   }
 
   40% {
-    transform: translate(-5%, 25%);
+    transform: translate(-4%, 16%);
   }
 
   50% {
-    transform: translate(-15%, 10%);
+    transform: translate(-12%, 8%);
   }
 
   60% {
-    transform: translate(15%, 0%);
+    transform: translate(12%, 0%);
   }
 
   70% {
-    transform: translate(0%, 15%);
+    transform: translate(0%, 12%);
   }
 
   80% {
-    transform: translate(3%, 35%);
+    transform: translate(3%, -18%);
   }
 
   90% {
-    transform: translate(-10%, 10%);
+    transform: translate(-8%, 8%);
+  }
+}
+
+@keyframes grain-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-15%, -10%);
+  }
+
+  50% {
+    transform: translate(5%, -18%);
+  }
+
+  75% {
+    transform: translate(-10%, 12%);
+  }
+
+  100% {
+    transform: translate(0, 0);
   }
 }
 
