@@ -146,13 +146,15 @@
 }
 
 /* Animated film-grain background.
-   - .grain-bg: tonal base (subtle gray gradient, like the old WebGL)
-   - .grain--fine: fine noise tile, fast discrete jumps (the grain flicker)
-   - .grain--coarse: coarser noise, slow smooth drift (depth/motion)
-   Translate values stay <= 20% so the 200% layer never reveals its edge. */
+   - .grain-bg: tonal base (subtle gray gradient) drifting slowly like light
+   - .grain--fine: fine noise tile, fast discrete jumps + slow intensity pulse
+   Translate values stay <= 20% so the 200% layers never reveal their edge. */
 .grain-bg {
   position: absolute;
-  inset: 0;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background:
     radial-gradient(
       120% 80% at 50% 40%,
@@ -160,6 +162,8 @@
       rgba(80, 79, 77, 0) 65%
     ),
     #0a0a0a;
+  animation: gradient-drift 30s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .grain {
@@ -174,14 +178,10 @@
 }
 
 .grain--fine {
-  opacity: 0.15; /* höher = kräftigeres Grain */
-  animation: grain-shift 1s steps(10) infinite;
-}
-
-.grain--coarse {
-  opacity: 0.08;
-  background-size: 1024px 1024px;
-  animation: grain-drift 14s linear infinite;
+  opacity: 0.15; /* Basis; atmet zwischen 0.12 und 0.2 */
+  animation:
+    grain-shift 1s steps(10) infinite,
+    grain-breathe 8s ease-in-out infinite alternate;
 }
 
 @keyframes grain-shift {
@@ -227,25 +227,23 @@
   }
 }
 
-@keyframes grain-drift {
+@keyframes grain-breathe {
+  0% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes gradient-drift {
   0% {
     transform: translate(0, 0);
   }
 
-  25% {
-    transform: translate(-15%, -10%);
-  }
-
-  50% {
-    transform: translate(5%, -18%);
-  }
-
-  75% {
-    transform: translate(-10%, 12%);
-  }
-
   100% {
-    transform: translate(0, 0);
+    transform: translate(-16%, -10%);
   }
 }
 
