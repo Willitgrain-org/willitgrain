@@ -36,89 +36,48 @@ de:
   synopsis: "In einem österreichischen Bergdorf im Jahr 1914..."
   billingHeader: "Eine WillIt Grain Produktion mit\nElena Franke  •  George Lenz  •  Jakob Maximilian  •  Julian Falzone  •  Barbara Maria Messner"
   billingFooter: "WILLIT GRAIN [LOGO]  •  HFF [LOGO]\n\n#FLUGGEFILM\nMit freundlicher Unterstützung der Stadt Dachau. Gefördert von JFF – Institut für Medienpädagogik in Forschung und Praxis im Rahmen des Projekts „Das bewegt uns“ mit Mitteln des Bayerischen Staatsministeriums für Familie, Arbeit und Soziales.\n© 2024 WILLIT GRAIN | SCHRAUDOLPH GAUDENZ LEOPOLD, WALTER FINN-OLIVER GBR. Alle Rechte vorbehalten."
-crewEn:
-  - role: "Production Design"
-    name: "Michelle Kleist, Ramona Overhoff"
-  - role: "Costume Design"
-    name: "Elena Bondar"
-  - role: "Make-Up"
-    name: "Carola Walter"
-  - role: "Original Sound"
-    name: "Maximilian Kotzur"
-  - role: "Lighting"
-    name: "Quirin Wolff"
-  - role: "Cinematography"
-    name: "Julia König"
-  - role: "Assistant Director"
-    name: "Jasmin Domochali"
-  - role: "Script Supervision"
-    name: "Maximiliane Rabenbauer"
-  - role: "Production Coordination"
-    name: "Emanuel Strassburger"
-  - role: "Unit Manager"
-    name: "Sarah Tschaikowski, Marcel Keiluweit"
-  - role: "Set Unit Manager"
-    name: "Natalia Blaskovic"
-  - role: "Line Producer"
-    name: "Finn-Oliver Walter"
-  - role: "Post-Production Supervisor"
-    name: "Maximiliane Rabenbauer, Cora Weiger"
-  - role: "VFX Supervisor"
-    name: "Ines Timmich"
-  - role: "Sound Design & Mix"
-    name: "Konrad Fleckenstein, Carla Boicu (Cat)"
-  - role: "Color Grading"
-    name: "Generosa Lanza"
-  - role: "Title Design"
-    name: "Vitus Jonas Lindbüchl, Christian Kosler"
-  - role: "Editing"
-    name: "Niclas Raab"
-  - role: "Music"
-    name: "Lukas Geppert"
-  - role: "Producers"
-    name: "Leopold Schraudolph, Finn-Oliver Walter"
-  - role: "Written and Directed by"
-    name: "Dani Rose Cortés, Leopold Schraudolph"
-crewDe:
-  - role: "Szenenbild"
-    name: "Michelle Kleist, Ramona Overhoff"
-  - role: "Kostümbild & Design"
-    name: "Elena Bondar"
-  - role: "Maskenbild"
-    name: "Carola Walter"
-  - role: "Originalton"
-    name: "Maximilian Kotzur"
-  - role: "Licht"
-    name: "Quirin Wolff"
-  - role: "Bildgestaltung"
-    name: "Julia König"
-  - role: "Regie-Assistenz"
-    name: "Jasmin Domochali"
-  - role: "Script Supervision"
-    name: "Maximiliane Rabenbauer"
-  - role: "Produktionskoord."
-    name: "Emanuel Strassburger"
-  - role: "Aufnahmeleitung"
-    name: "Sarah Tschaikowski, Marcel Keiluweit"
-  - role: "Set-Aufnahmeleitung"
-    name: "Natalia Blaskovic"
-  - role: "Produktionsleitung"
-    name: "Finn-Oliver Walter"
-  - role: "Postproduktions-Sup."
-    name: "Maximiliane Rabenbauer, Cora Weiger"
-  - role: "VFX-Supervision"
-    name: "Ines Timmich"
-  - role: "Sound Design & Mischung"
-    name: "Konrad Fleckenstein, Carla Boicu (Cat)"
-  - role: "Color-Grading"
-    name: "Generosa Lanza"
-  - role: "Titel-Design"
-    name: "Vitus Jonas Lindbüchl, Christian Kosler"
-  - role: "Schnitt"
-    name: "Niclas Raab"
-  - role: "Musik"
-    name: "Lukas Geppert"
-  - role: "Produzenten"
-    name: "Leopold Schraudolph, Finn-Oliver Walter"
-  - role: "Drehbuch & Regie"
-    name: "Dani Rose Cortés, Leopold Schraudolph"
+crewEn: |
+  Production Design: Michelle Kleist, Ramona Overhoff
+  Costume Design: Elena Bondar
+  Make-Up: Carola Walter
+  Original Sound: Maximilian Kotzur
+  Lighting: Quirin Wolff
+  Cinematography: Julia König
+  Assistant Director: Jasmin Domochali
+  Script Supervision: Maximiliane Rabenbauer
+  Production Coordination: Emanuel Strassburger
+  Unit Manager: Sarah Tschaikowski, Marcel Keiluweit
+  Set Unit Manager: Natalia Blaskovic
+  Line Producer: Finn-Oliver Walter
+  Post-Production Supervisor: Maximiliane Rabenbauer, Cora Weiger
+  VFX Supervisor: Ines Timmich
+  Sound Design & Mix: Konrad Fleckenstein, Carla Boicu (Cat)
+  Color Grading: Generosa Lanza
+  Title Design: Vitus Jonas Lindbüchl, Christian Kosler
+  Editing: Niclas Raab
+  Music: Lukas Geppert
+  Producers: Leopold Schraudolph, Finn-Oliver Walter
+  Written and Directed by: Dani Rose Cortés, Leopold Schraudolph
+
+crewDe: |
+  Szenenbild: Michelle Kleist, Ramona Overhoff
+  Kostümbild & Design: Elena Bondar
+  Maskenbild: Carola Walter
+  Originalton: Maximilian Kotzur
+  Licht: Quirin Wolff
+  Bildgestaltung: Julia König
+  Regie-Assistenz: Jasmin Domochali
+  Script Supervision: Maximiliane Rabenbauer
+  Produktionskoord.: Emanuel Strassburger
+  Aufnahmeleitung: Sarah Tschaikowski, Marcel Keiluweit
+  Set-Aufnahmeleitung: Natalia Blaskovic
+  Produktionsleitung: Finn-Oliver Walter
+  Postproduktions-Sup.: Maximiliane Rabenbauer, Cora Weiger
+  VFX-Supervision: Ines Timmich
+  Sound Design & Mischung: Konrad Fleckenstein, Carla Boicu (Cat)
+  Color-Grading: Generosa Lanza
+  Titel-Design: Vitus Jonas Lindbüchl, Christian Kosler
+  Schnitt: Niclas Raab
+  Musik: Lukas Geppert
+  Produzenten: Leopold Schraudolph, Finn-Oliver Walter
+  Drehbuch & Regie: Dani Rose Cortés, Leopold Schraudolph

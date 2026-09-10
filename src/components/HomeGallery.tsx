@@ -15,7 +15,7 @@ export function HomeGallery({ lang = 'en', projects = [] }: { lang?: 'en' | 'de'
       return {
         href: lang === 'en' ? `/${p.id}` : `/de/${p.id}`,
         image: p.previewUrl || data.posterUrl || "",
-        title: data.title || "",
+        title: data[lang]?.title || data.title || "",
         description: data[lang]?.synopsis || "",
         label: data[lang]?.genre || "",
         color: '#121212' // Dark fallback background

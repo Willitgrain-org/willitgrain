@@ -12,6 +12,7 @@ const projectsCollection = defineCollection({
     stills: z.array(z.string()).optional(),
     bts: z.array(z.string()).optional(),
     en: z.object({
+      title: z.string().optional(),
       type: z.string().optional(),
       genre: z.string().optional(),
       synopsis: z.string().optional(),
@@ -19,20 +20,15 @@ const projectsCollection = defineCollection({
       billingFooter: z.string().optional(),
     }),
     de: z.object({
+      title: z.string().optional(),
       type: z.string().optional(),
       genre: z.string().optional(),
       synopsis: z.string().optional(),
       billingHeader: z.string().optional(),
       billingFooter: z.string().optional(),
     }),
-    crewEn: z.array(z.object({
-      role: z.string(),
-      name: z.string(),
-    })).optional(),
-    crewDe: z.array(z.object({
-      role: z.string(),
-      name: z.string(),
-    })).optional(),
+    crewEn: z.string().optional(),
+    crewDe: z.string().optional(),
   }),
 });
 

@@ -44,6 +44,7 @@ export default config({
         }),
 
         en: fields.object({
+          title: fields.text({ label: 'Title (English)' }),
           type: fields.text({ label: 'Type (English)' }),
           genre: fields.text({ label: 'Genre (English)' }),
           synopsis: fields.text({ label: 'Synopsis (English)', multiline: true }),
@@ -52,6 +53,7 @@ export default config({
         }),
 
         de: fields.object({
+          title: fields.text({ label: 'Title (German)' }),
           type: fields.text({ label: 'Type (German)' }),
           genre: fields.text({ label: 'Genre (German)' }),
           synopsis: fields.text({ label: 'Synopsis (German)', multiline: true }),
@@ -59,21 +61,17 @@ export default config({
           billingFooter: fields.text({ label: 'Billing Footer (German)', multiline: true }),
         }),
 
-        crewEn: fields.array(
-          fields.object({
-            role: fields.text({ label: 'Role' }),
-            name: fields.text({ label: 'Name' }),
-          }),
-          { label: 'Crew List (English)', itemLabel: (props: any) => `${props.fields.role.value}: ${props.fields.name.value}` }
-        ),
+        crewEn: fields.text({
+          label: 'Crew List (English)',
+          description: 'One per line: "Role: Name" (e.g. "Production Design: Michelle Kleist, Ramona Overhoff")',
+          multiline: true,
+        }),
 
-        crewDe: fields.array(
-          fields.object({
-            role: fields.text({ label: 'Role' }),
-            name: fields.text({ label: 'Name' }),
-          }),
-          { label: 'Crew List (German)', itemLabel: (props: any) => `${props.fields.role.value}: ${props.fields.name.value}` }
-        ),
+        crewDe: fields.text({
+          label: 'Crew List (German)',
+          description: 'Eine Zeile pro Person: "Rolle: Name" (z.B. "Szenenbild: Michelle Kleist, Ramona Overhoff")',
+          multiline: true,
+        }),
       },
     }),
   },
