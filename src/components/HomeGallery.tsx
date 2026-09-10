@@ -14,7 +14,7 @@ export function HomeGallery({ lang = 'en', projects = [] }: { lang?: 'en' | 'de'
       const data = p.data;
       return {
         href: lang === 'en' ? `/${p.id}` : `/de/${p.id}`,
-        image: data.posterUrl || "",
+        image: p.previewUrl || data.posterUrl || "",
         title: data.title || "",
         description: data[lang]?.synopsis || "",
         label: data[lang]?.genre || "",

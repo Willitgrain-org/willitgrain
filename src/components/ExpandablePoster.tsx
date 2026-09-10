@@ -15,6 +15,15 @@ export function ExpandablePoster({ src, alt }: ExpandablePosterProps) {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
+
   return (
     <>
       <div 
@@ -37,8 +46,8 @@ export function ExpandablePoster({ src, alt }: ExpandablePosterProps) {
       </div>
 
       {isOpen && mounted && createPortal(
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="relative w-full max-w-4xl max-h-full flex flex-col items-center justify-center backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl p-2 md:p-4 shadow-2xl">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setIsOpen(false)}>
+          <div className="relative w-full max-w-4xl max-h-full flex flex-col items-center justify-center backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl p-2 md:p-4 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <button 
               className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white shrink-0 text-black p-3 md:p-4 rounded-full shadow-xl hover:scale-110 transition-transform z-10"
               onClick={() => setIsOpen(false)}

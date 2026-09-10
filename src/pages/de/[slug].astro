@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { ImageGridWithLightbox } from '@/components/ImageGridWithLightbox';
 import { ExpandablePoster } from '@/components/ExpandablePoster';
+import { getProjectImages } from '@/lib/projectImages';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -20,6 +21,9 @@ interface Props {
 
 const { project } = Astro.props;
 const data = project.data;
+
+const stills = getProjectImages(project.id, 'stills');
+const bts = getProjectImages(project.id, 'bts');
 
 const trailerHref = data.trailerUrl || "https://www.youtube.com/watch?v=w0hGIOXk90s";
 const trailerEmbed = trailerHref.replace('watch?v=', 'embed/');
@@ -144,10 +148,10 @@ const trailerEmbed = trailerHref.replace('watch?v=', 'embed/');
         </div>
 
         {/* 4. Stills Grid */}
-        <ImageGridWithLightbox client:load title="Stills" images={data.stills || []} />
+        <ImageGridWithLightbox client:load title="Stills" images={stills} />
 
         {/* 5. Behind the Scenes Grid */}
-        <ImageGridWithLightbox client:load title="Behind The Scenes" images={data.bts || []} />
+        <ImageGridWithLightbox client:load title="Behind The Scenes" images={bts} />
 
       </div>
     </div>

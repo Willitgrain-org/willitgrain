@@ -4,12 +4,17 @@ import { Header } from "@/components/Header"
 import { HomeGallery } from "@/components/HomeGallery"
 import { Footer } from "@/components/Footer"
 import { getCollection } from "astro:content"
+import { getProjectPreview } from "@/lib/projectImages"
 
 const allProjects = await getCollection('projects')
+const projects = allProjects.map((p) => ({
+  ...p,
+  previewUrl: getProjectPreview(p.id) ?? p.data.posterUrl ?? "",
+}))
 ---
 
 <Layout lang="de" title="WILL IT GRAIN - Filmproduktion">
   <Header lang="de" client:load />
-  <HomeGallery lang="de" projects={allProjects} client:load />
+  <HomeGallery lang="de" projects={projects} client:load />
   <Footer lang="de" client:load />
 </Layout>
