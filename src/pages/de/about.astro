@@ -1,0 +1,133 @@
+---
+import Layout from "@/layouts/main.astro"
+import { Header } from "@/components/Header"
+import { Footer } from "@/components/Footer"
+import { EmailCopyButton } from "@/components/EmailCopyButton"
+
+const email = "info@willitgrain.com"
+---
+
+<Layout lang="de" title="Über uns | WILLIT GRAIN">
+  <Header lang="de" isAboutPage client:load />
+
+  <main class="relative z-10 flex flex-col w-full min-h-screen pt-28 md:pt-32 pb-24 text-white px-4 md:px-8 xl:px-12 mx-auto max-w-[1200px] gap-8 md:gap-12">
+
+    <!-- Unternehmensbeschreibung -->
+    <section class="backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] animate-fade-up">
+      <h2 class="font-heading text-3xl md:text-5xl mb-6 md:mb-8 drop-shadow-lg">Willit Grain</h2>
+      <div class="space-y-4 text-sm md:text-lg text-white/80 leading-relaxed font-sans font-light">
+        <p>
+          Willit Grain ist eine unabhängige Filmproduktionsfirma, die 2023 von Leopold
+          Schraudolph und Finn-Oliver Walter gegründet wurde. Ihr Kurzfilm <em>FLÜGGE</em> wurde
+          auf 17 internationalen Festivals gezeigt und mit 11 Preisen ausgezeichnet.
+        </p>
+        <p>
+          Aufbauend auf den vielfältigen Hintergründen der Gründer steht Willit Grain für
+          charaktergeführtes Genre-Kino. Unsere Geschichten streben die höchste Dualität des
+          Filmemachens an – das Publikum kompromisslos zu unterhalten und dabei tiefgründige
+          Themen zu behandeln.
+        </p>
+        <p class="text-white/50 font-mono text-xs md:text-sm uppercase tracking-widest">
+          Sitz in München
+        </p>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 animate-fade-up delay-300">
+
+      <!-- Leopold -->
+      <div class="backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] flex flex-col">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img
+            src="/porträts/leopold-schraudolph.webp"
+            alt="Leopold Schraudolph"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 md:p-8 flex flex-col gap-4 flex-1">
+          <h3 class="font-heading text-xl md:text-2xl drop-shadow-lg">Leopold Schraudolph</h3>
+          <p class="text-sm md:text-base text-white/70 leading-relaxed font-sans font-light">
+            Leopold wurde in Singapur geboren und aufgezogen, bevor er 2021 nach Europa zog.
+            Er studierte Produktion im dualen System und sammelte Erfahrung bei mehreren
+            Produktionsfirmen in München und Paris. Er ist Stipendiat der Studienstiftung
+            des deutschen Volkes und des Max Weber-Programms.
+          </p>
+        </div>
+      </div>
+
+      <!-- Finn-Oliver -->
+      <div class="backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] flex flex-col">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img
+            src="/porträts/finn-oliver-walter.webp"
+            alt="Finn-Oliver Walter"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 md:p-8 flex flex-col gap-4 flex-1">
+          <h3 class="font-heading text-xl md:text-2xl drop-shadow-lg">Finn-Oliver Walter</h3>
+          <p class="text-sm md:text-base text-white/70 leading-relaxed font-sans font-light">
+            Finn wurde in der Nähe von München geboren und produziert seit Jahren eigene
+            und Auftragsprojekte. Während seines dualen Studiums der Produktion sammelte
+            er wertvolle Erfahrung bei einer der führenden Produktionsfirmen Deutschlands.
+            Seit 2025 studiert er „International Producing" an der Filmakademie
+            Baden-Württemberg.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Kontakt -->
+    <section class="backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] animate-fade-up delay-500">
+      <h3 class="font-mono text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold">
+        Kontakt
+      </h3>
+      <div class="flex flex-col gap-6">
+        <EmailCopyButton email={email} client:load />
+
+        <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
+          <a
+            href="https://www.crew-united.com/de/Willit-Grain-Schraudolph-Gaudenz-Leopold-Walter-Finn-Oliver-GbR-de_740708.html"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/80 hover:text-white transition-all backdrop-blur-md bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 px-4 md:px-5 py-2.5 md:py-3 rounded-full"
+          >
+            <img
+              src="/logos/crew-united.svg"
+              alt=""
+              class="h-4 md:h-5 w-auto brightness-0 invert opacity-80"
+            />
+            Crew United ↗
+          </a>
+          <a
+            href="https://www.instagram.com/willitgrain/"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/80 hover:text-white transition-all backdrop-blur-md bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 px-4 md:px-5 py-2.5 md:py-3 rounded-full"
+            aria-label="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16"
+              viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            Instagram ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer lang="de" client:load />
+</Layout>

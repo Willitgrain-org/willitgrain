@@ -1,6 +1,6 @@
-export function Header({ lang = 'en', currentProjectSlug, isShopPage = false }: { lang?: 'en' | 'de', currentProjectSlug?: string, isShopPage?: boolean }) {
-  const enLink = isShopPage ? '/shop' : currentProjectSlug ? `/${currentProjectSlug}` : '/';
-  const deLink = isShopPage ? '/de/shop' : currentProjectSlug ? `/de/${currentProjectSlug}` : '/de';
+export function Header({ lang = 'en', currentProjectSlug, isShopPage = false, isAboutPage = false }: { lang?: 'en' | 'de', currentProjectSlug?: string, isShopPage?: boolean, isAboutPage?: boolean }) {
+  const enLink = isShopPage ? '/shop' : isAboutPage ? '/about' : currentProjectSlug ? `/${currentProjectSlug}` : '/';
+  const deLink = isShopPage ? '/de/shop' : isAboutPage ? '/de/about' : currentProjectSlug ? `/de/${currentProjectSlug}` : '/de';
 
   return (
     <header className="relative z-10 flex flex-col md:flex-row md:items-center justify-between p-6 px-10 text-foreground animate-fade-up delay-100">
@@ -39,7 +39,7 @@ export function Header({ lang = 'en', currentProjectSlug, isShopPage = false }: 
               {lang === 'en' ? 'Cart' : 'Warenkorb'} <span className="snipcart-items-count text-xs ml-1 bg-white/20 px-2 py-0.5 rounded-full">0</span>
             </button>
           )}
-          <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">
+          <a href={lang === 'en' ? '/about' : '/de/about'} className="opacity-70 hover:opacity-100 transition-opacity">
             {lang === 'en' ? 'About' : 'Über uns'}
           </a>
           <a href="https://www.instagram.com/willitgrain/" target="_blank" rel="noreferrer" className="opacity-70 hover:opacity-100 transition-opacity" aria-label="Instagram">
