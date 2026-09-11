@@ -91,7 +91,7 @@ const trailerEmbed = trailerHref.replace('watch?v=', 'embed/');
         </div>
 
         {/* Desktop Poster (hidden on mobile) */}
-        <div class="hidden md:flex justify-center border border-white/10 rounded-3xl p-4 lg:p-8 backdrop-blur-md bg-white/[0.01]">
+        <div class="hidden md:flex justify-center border border-white/10 rounded-3xl p-4 lg:p-8 backdrop-blur-2xl bg-white/[0.03] shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
             <ExpandablePoster client:load src={data.posterUrl || ""} alt={data.title || "Poster"} />
         </div>
 
