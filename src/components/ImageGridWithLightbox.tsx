@@ -58,7 +58,7 @@ export function ImageGridWithLightbox({
 
   return (
     <>
-      <div className="backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
+      <div className="border border-white/10 rounded-3xl p-6 md:p-10">
         <h3 className="font-mono text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold">
           {title}
         </h3>
