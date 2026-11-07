@@ -1,12 +1,19 @@
 title: THAW
-runtime: 10min
+runtime: 10 Min.
 posterUrl: /projects/thaw/posterUrl.webp
 crewUnitedUrl: https://www.crew-united.com/en/Thaw__328055.html#!searchterm=THAW
-stills:
-  - /projects/thaw/stills/0.webp
-bts:
-  - /projects/thaw/bts/0.webp
-en: {}
-de: {}
-crewEn: ""
-crewDe: ""
+filmfreewayUrl: https://filmfreeway.com/thawfilm
+stills: []
+bts: []
+en:
+  title: THAW
+  type: Shortfilm
+  genre: Drama
+  synopsis: >-
+    A mother’s death leaves daughter and father with cold Christmas festivities,
+    while both are burdened with respectively different bundles of grief.
+de:
+  type: Kurzfilm
+  synopsis: >-
+    Der Tod einer Mutter beschert Tochter und Vater ein kaltes Weihnachtsfest
+    mit individuellen Trauerpäckchen.
