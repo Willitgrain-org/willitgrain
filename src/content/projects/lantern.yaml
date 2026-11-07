@@ -1,14 +1,14 @@
 title: LANTERN
-runtime: 7min
+runtime: 7 Min.
 posterUrl: /projects/lantern/posterUrl.webp
 crewUnitedUrl: https://www.crew-united.com/en/Lantern__346154.html
-stills:
-  - /projects/lantern/stills/0.webp
-bts:
-  - /projects/lantern/bts/0.webp
+filmfreewayUrl: https://filmfreeway.com/lanternfilm
+stills: []
+bts: []
 en:
+  title: LANTERN
   type: Shortfilm
-  genre: Fantasy Drama
+  genre: Fantasy
   synopsis: >-
     In a dystopian world, a girl must befriend the magical being trapped within
     a lantern to escape her captor and the cruel system he upholds.
@@ -42,7 +42,7 @@ en:
     With the kind support of the city of Lauf.
 de:
   type: Kurzfilm
-  genre: Fantasy Drama
+  genre: Fantasy
   synopsis: >-
     In einer dystopischen Welt muss sich ein Mädchen mit dem magischen Wesen
     anfreunden, das in einer Laterne gefangen ist, um ihrem Entführer und dem
@@ -75,5 +75,3 @@ de:
     #lanternfilm
 
     With the kind support of the city of Lauf.
-crewEn: ""
-crewDe: ""
