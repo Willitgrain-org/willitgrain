@@ -9,4 +9,5 @@ en:
   title: KNÖLLCHEN
   type: Shortfilm
   genre: Dramedy
-de: {}
+de:
+  type: Kurzfilm
