@@ -1,10 +1,12 @@
 title: BEAR ATTACK
+runtime: 2 Min.
 posterUrl: /projects/bear-attack/posterUrl.webp
-stills:
-  - /projects/bear-attack/stills/0.webp
-bts:
-  - /projects/bear-attack/bts/0.webp
-en: {}
-de: {}
-crewEn: ""
-crewDe: ""
+stills: []
+bts: []
+en:
+  type: Spec-Ad
+  genre: Comedy
+de:
+  title: BEAR ATTACK
+  type: Spec-Werbung
+  genre: Komödie
