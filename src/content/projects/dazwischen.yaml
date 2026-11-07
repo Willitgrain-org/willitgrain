@@ -1,10 +1,19 @@
 title: DAZWISCHEN
+runtime: 3 Min.
 posterUrl: /projects/dazwischen/posterUrl.webp
-stills:
-  - /projects/dazwischen/stills/0.webp
-bts:
-  - /projects/dazwischen/bts/0.webp
-en: {}
-de: {}
-crewEn: ""
-crewDe: ""
+stills: []
+bts: []
+en:
+  title: IN-BETWEEN
+  type: Shortfilm
+  genre: Drama
+  synopsis: >-
+    She's here. Or is she? Jonas wishes she were here, but something stands
+    between them.
+de:
+  title: DAZWISCHEN
+  type: Kurzfilm
+  genre: Drama
+  synopsis: >-
+    Sie ist da. Oder nicht? Jonas wünscht sich, dass sie da wäre, aber etwas
+    steht zwischen Ihnen.
