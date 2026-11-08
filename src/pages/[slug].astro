@@ -27,8 +27,8 @@ const crew = parseCrew(data.crewEn);
 const stills = getProjectImages(project.id, 'stills');
 const bts = getProjectImages(project.id, 'bts');
 
-const trailerHref = data.trailerUrl || "https://www.youtube.com/watch?v=w0hGIOXk90s";
-const trailerEmbed = trailerHref.replace('watch?v=', 'embed/');
+const trailerHref = data.trailerUrl?.trim();
+const trailerEmbed = trailerHref?.replace('watch?v=', 'embed/');
 ---
 
 <Layout title={data.en.title || data.title || ""} lang="en">
