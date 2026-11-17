@@ -1,0 +1,43 @@
+---
+/** Homepage, shared by / (EN) and /de (DE). */
+import Layout from '@/layouts/main.astro';
+import { Header } from '@/components/Header';
+import { HomeGallery, type HomeProject } from '@/components/HomeGallery';
+import { Footer } from '@/components/Footer';
+import { getCollection } from 'astro:content';
+import { getProjectPreview } from '@/lib/projectImages';
+import { getResponsiveImage, IMAGE_PRESETS } from '@/lib/images';
+import type { Lang } from '@/lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const title = {
+  en: undefined, // Layout default
+  de: 'WILLIT GRAIN - Filmproduktion',
+}[lang];
+
+const allProjects = await getCollection('projects');
+const projects: HomeProject[] = await Promise.all(
+  allProjects.map(async (p) => {
+    const text = p.data[lang];
+    const preview = getProjectPreview(p.id) ?? p.data.posterUrl;
+    return {
+      slug: p.id,
+      title: text.title || p.data.title || '',
+      synopsis: text.synopsis || '',
+      genre: text.genre || '',
+      image: preview ? await getResponsiveImage(preview, IMAGE_PRESETS.card) : null,
+    };
+  })
+);
+---
+
+<Layout lang={lang} title={title}>
+  <Header lang={lang} client:load />
+  <HomeGallery lang={lang} projects={projects} client:load />
+  <Footer lang={lang} client:load />
+</Layout>

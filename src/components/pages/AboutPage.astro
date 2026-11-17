@@ -1,0 +1,167 @@
+---
+/**
+ * About page, shared by /about (EN) and /de/about (DE).
+ * All language-specific text is in `t` below.
+ */
+import Layout from "@/layouts/main.astro"
+import { Header } from "@/components/Header"
+import { Footer } from "@/components/Footer"
+import { EmailCopyButton } from "@/components/EmailCopyButton"
+import { getResponsiveImage, IMAGE_PRESETS } from "@/lib/images"
+import type { Lang } from "@/lib/i18n"
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const email = "info@willitgrain.com"
+
+const t = {
+  en: {
+    title: "About | WILLIT GRAIN",
+    company:
+      "Willit Grain develops feature films with a European perspective: character-driven genre and specialty cinema that both entertains and moves audiences. Our focus is on characters who defy the boundaries imposed upon them. Our stories aim to achieve the highest duality of filmmaking – unapologetically entertain audiences while handling profound themes.",
+    founders:
+      "The company was founded near Munich by Leopold Schraudolph and Finn-Oliver Walter, who have been producing together since 2022.",
+    leopold:
+      "Leopold was born and raised in Singapore before moving to Europe in 2021. He studied film production in the dual system, supported by scholarships from the German Academic Scholarship Foundation (Studienstiftung) and the Bavarian Elite Development Program (Max Weber Programm). He has worked at production companies in Munich and Paris. He has written and directed eleven award-winning short films screened internationally, often exploring people who dream.",
+    finn:
+      "Finn grew up near Munich and has produced his own and commissioned projects for years. During his dual studies in production, he gained valuable experience at Wiedemann&Berg. Since 2025, he has been specializing in “International Producing” at the Filmakademie Baden-Württemberg. He views the production process as the art of bringing together artistic visions, teams and resources to create a viable production as a whole.",
+    contact: "Get in touch",
+  },
+  de: {
+    title: "Über uns | WILLIT GRAIN",
+    company:
+      "Willit Grain entwickelt Kinofilme mit europäischer Perspektive: charakterorientiertes Genre- und Nischenkino, das das Publikum sowohl unterhält als auch bewegt. Unser Fokus liegt auf Figuren, die sich den ihnen auferlegten Grenzen widersetzen. Unsere Geschichten zielen darauf ab, die höchste Dualität des Filmemachens zu erreichen – das Publikum kompromisslos zu unterhalten und gleichzeitig tiefgründige Themen zu behandeln.",
+    founders:
+      "Das Unternehmen wurde in der Nähe von München von Leopold Schraudolph und Finn-Oliver Walter gegründet, die seit 2022 gemeinsam produzieren.",
+    leopold:
+      "Leopold ist in Singapur geboren und aufgewachsen, bevor er 2021 nach Europa zog. Er studierte Filmproduktion dual und wurde dabei durch Stipendien der Studienstiftung und des bayerischen Eliteförderprogramms (Max-Weber-Programm) unterstützt. Er hat bei mehreren Produktionsfirmen in München und Paris gearbeitet. Zudem hat er elf Kurzfilme geschrieben und inszeniert, die international gezeigt sowie ausgezeichnet wurden und in denen er sich häufig mit Menschen auseinandersetzt, die Träume haben.",
+    finn:
+      "Finn ist in der Nähe von München aufgewachsen und realisiert seit Jahren eigene sowie Auftragsprojekte. Während seines dualen Studiums im Bereich Produktionsmanagement sammelte er wertvolle Erfahrungen bei Wiedemann&Berg. Seit 2025 absolviert er an der Filmakademie Baden-Württemberg den Schwerpunkt „International Producing“. Er versteht den Produktionsprozess als die Kunst, künstlerische Visionen, Teams und Ressourcen so zusammenzuführen, dass eine tragfähige Gesamtproduktion entsteht.",
+    contact: "Kontakt",
+  },
+}[lang]
+
+const [leopoldImg, finnImg] = await Promise.all([
+  getResponsiveImage("/porträts/leopold-schraudolph.webp", IMAGE_PRESETS.portrait),
+  getResponsiveImage("/porträts/finn-oliver-walter.webp", IMAGE_PRESETS.portrait),
+])
+---
+
+<Layout lang={lang} title={t.title}>
+  <Header lang={lang} isAboutPage client:load />
+
+  <main class="relative z-10 flex flex-col w-full min-h-screen pt-28 md:pt-32 pb-24 text-white px-4 md:px-8 xl:px-12 mx-auto max-w-[1200px] gap-8 md:gap-12">
+
+    <!-- Company Description -->
+    <section class="border border-white/10 rounded-3xl p-6 md:p-10 animate-fade-up">
+      <h2 class="font-heading text-3xl md:text-5xl mb-6 md:mb-8 drop-shadow-lg">WILLIT GRAIN</h2>
+      <div class="space-y-4 text-sm md:text-lg text-white/80 leading-relaxed font-sans font-light text-pretty">
+        <p>
+{t.company}
+        </p>
+        <p>
+{t.founders}
+        </p>
+      </div>
+    </section>
+
+    <!-- Profiles -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 animate-fade-up delay-300">
+
+      <!-- Leopold -->
+      <div class="border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img
+            src={leopoldImg.src}
+            srcset={leopoldImg.srcset}
+            sizes={leopoldImg.sizes}
+            alt="Leopold Schraudolph"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="p-6 md:p-8 flex flex-col gap-4 flex-1">
+          <h3 class="font-heading text-xl md:text-2xl drop-shadow-lg">Leopold Schraudolph</h3>
+          <p class="text-sm md:text-base text-white/70 leading-relaxed font-sans font-light text-pretty hyphens-auto">
+{t.leopold}
+          </p>
+        </div>
+      </div>
+
+      <!-- Finn-Oliver -->
+      <div class="border border-white/10 rounded-3xl overflow-hidden flex flex-col">
+        <div class="aspect-[3/4] overflow-hidden">
+          <img
+            src={finnImg.src}
+            srcset={finnImg.srcset}
+            sizes={finnImg.sizes}
+            alt="Finn-Oliver Walter"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="p-6 md:p-8 flex flex-col gap-4 flex-1">
+          <h3 class="font-heading text-xl md:text-2xl drop-shadow-lg">Finn-Oliver Walter</h3>
+          <p class="text-sm md:text-base text-white/70 leading-relaxed font-sans font-light text-pretty hyphens-auto">
+{t.finn}
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Contact -->
+    <section class="border border-white/10 rounded-3xl p-6 md:p-10 animate-fade-up delay-500">
+      <h3 class="font-mono text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold">
+        {t.contact}
+      </h3>
+      <div class="flex flex-col gap-6">
+        <EmailCopyButton email={email} client:load />
+
+        <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
+          <a
+            href="https://www.crew-united.com/de/Willit-Grain-Schraudolph-Gaudenz-Leopold-Walter-Finn-Oliver-GbR-de_740708.html"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/80 hover:text-white transition-all backdrop-blur-md bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 px-4 md:px-5 py-2.5 md:py-3 rounded-full"
+          >
+            <img
+              src="/logos/crew-united.svg"
+              alt=""
+              class="h-4 md:h-5 w-auto brightness-0 invert opacity-80"
+            />
+            Crew United ↗
+          </a>
+          <a
+            href="https://www.instagram.com/willitgrain/"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/80 hover:text-white transition-all backdrop-blur-md bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 px-4 md:px-5 py-2.5 md:py-3 rounded-full"
+            aria-label="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16"
+              viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            Instagram ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer lang={lang} client:load />
+</Layout>

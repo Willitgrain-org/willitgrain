@@ -654,7 +654,7 @@ const MagicBento = ({
             const CardContent = (
               <>
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                  {card.image && <img src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />}
+                  {card.image && <img src={card.image} srcSet={card.srcSet} sizes={card.sizes} alt={card.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />}
                 </div>
                 <div className="card__content flex flex-col relative z-20 text-white mt-auto p-6 md:p-8">
                   <h3 className={`card__title tracking-widest font-heading text-2xl md:text-3xl m-0 mb-2 drop-shadow-xl ${textAutoHide ? 'opacity-90 transition-opacity' : ''}`}>

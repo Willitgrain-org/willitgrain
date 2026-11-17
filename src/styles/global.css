@@ -469,3 +469,67 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+/* Project title on detail pages: as large as the design allows (30/48/72px),
+   but never wider than its column, so long single words don't wrap.
+   --title-em = width of the longest word in em (set in ProjectPage.astro). */
+.project-title {
+  font-size: min(1.875rem, 100cqi / var(--title-em, 6));
+}
+@media (min-width: 768px) {
+  .project-title {
+    font-size: min(3rem, 100cqi / var(--title-em, 6));
+  }
+}
+@media (min-width: 1024px) {
+  .project-title {
+    font-size: min(4.5rem, 100cqi / var(--title-em, 6));
+  }
+}
+
+/* Imprint / privacy policy (Markdown from src/legal/) */
+.legal {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgb(255 255 255 / 0.75);
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
+}
+@media (min-width: 768px) {
+  .legal { font-size: 1rem; }
+}
+.legal h2 {
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.9);
+}
+.legal h1 + h2 { margin-top: 0; padding-top: 0; border-top: 0; }
+.legal h3 {
+  margin: 2rem 0 0.75rem;
+  font-weight: 500;
+  font-size: 1.05em;
+  color: rgb(255 255 255 / 0.9);
+}
+.legal h4 {
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.85);
+}
+.legal p { margin: 0 0 1rem; }
+.legal strong { font-weight: 500; color: rgb(255 255 255 / 0.9); }
+.legal ul { margin: 0 0 1rem; padding-left: 1.25rem; list-style: disc; }
+.legal li { margin-bottom: 0.5rem; }
+.legal a {
+  color: rgb(255 255 255 / 0.9);
+  text-decoration: underline;
+  text-decoration-color: rgb(255 255 255 / 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.legal a:hover { text-decoration-color: rgb(255 255 255 / 0.9); }

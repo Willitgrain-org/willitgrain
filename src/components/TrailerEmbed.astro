@@ -1,0 +1,89 @@
+---
+/**
+ * Two-click video embed (privacy): until the visitor clicks, nothing is loaded
+ * from YouTube/Vimeo – only our own still is shown. The click swaps in the
+ * player iframe (with autoplay). Works without React hydration.
+ */
+import type { ResponsiveImage } from '@/lib/images';
+import type { Lang } from '@/lib/i18n';
+import { LEGAL_PATHS } from '@/lib/legal';
+
+interface Props {
+  embedUrl: string;
+  title: string;
+  lang: Lang;
+  image?: ResponsiveImage | null;
+}
+
+const { embedUrl, title, lang, image } = Astro.props;
+const provider = new URL(embedUrl).hostname.includes('vimeo') ? 'Vimeo' : 'YouTube';
+const src = `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1`;
+
+const t = {
+  en: {
+    play: 'Play trailer',
+    notice: `Loads the video from ${provider}. Data will be transmitted to ${provider} in the process.`,
+    privacy: 'Privacy policy',
+  },
+  de: {
+    play: 'Trailer abspielen',
+    notice: `Lädt das Video von ${provider}. Dabei werden Daten an ${provider} übertragen.`,
+    privacy: 'Datenschutzerklärung',
+  },
+}[lang];
+---
+
+<div
+  class="trailer-embed w-full aspect-video rounded-xl overflow-hidden bg-black/50 shadow-2xl border border-white/10 relative z-20"
+  data-trailer-src={src}
+  data-trailer-title={title}
+>
+  <button
+    type="button"
+    class="trailer-embed__button group absolute inset-0 flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 text-white"
+    aria-label={`${t.play}: ${title}`}
+  >
+    {image && (
+      <img
+        src={image.src}
+        srcset={image.srcset}
+        sizes={image.sizes}
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover opacity-50 transition-opacity duration-500 group-hover:opacity-70"
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+    <span class="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-md transition-transform duration-300 group-hover:scale-110 md:h-20 md:w-20">
+      <svg viewBox="0 0 24 24" class="ml-1 h-7 w-7 md:h-8 md:w-8" fill="currentColor" aria-hidden="true">
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"></path>
+      </svg>
+    </span>
+    <span class="relative font-mono text-[10px] uppercase tracking-widest md:text-xs">{t.play}</span>
+  </button>
+  <p class="trailer-embed__notice pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pt-8 pb-3 text-center text-[10px] leading-relaxed text-white/60 md:text-xs">
+    {t.notice}
+    <a href={LEGAL_PATHS.privacy[lang]} class="pointer-events-auto underline decoration-white/30 underline-offset-2 hover:text-white">
+      {t.privacy}
+    </a>
+  </p>
+</div>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const button = target?.closest('.trailer-embed__button');
+    const container = button?.closest<HTMLElement>('.trailer-embed');
+    if (!container?.dataset.trailerSrc) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = container.dataset.trailerSrc;
+    iframe.title = container.dataset.trailerTitle ?? '';
+    iframe.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.className = 'absolute inset-0 h-full w-full border-0';
+
+    container.replaceChildren(iframe);
+  });
+</script>

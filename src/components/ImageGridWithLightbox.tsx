@@ -1,34 +1,28 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { XIcon, ChevronLeft, ChevronRight } from "lucide-react"
+import type { ResponsiveImage } from "@/lib/images"
+import { shuffle } from "@/lib/shuffle"
+import { useIsClient } from "@/lib/useIsClient"
 
 interface ImageGridWithLightboxProps {
-  images: string[]
+  images: ResponsiveImage[]
   title: string
-}
-
-function shuffle<T>(items: T[]): T[] {
-  const arr = [...items]
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
-  }
-  return arr
 }
 
 export function ImageGridWithLightbox({
   images,
   title,
 }: ImageGridWithLightboxProps) {
-  const [displayImages, setDisplayImages] = useState<string[]>(images)
+  const isClient = useIsClient()
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-  const [mounted, setMounted] = useState(false)
 
-  // Shuffle client-side so the order changes on every page load.
-  useEffect(() => {
-    setDisplayImages(shuffle(images))
-    setMounted(true)
-  }, [images])
+  // Shuffle client-side so the order changes on every page load. The server
+  // (and hydration) render keeps the original order to avoid a mismatch.
+  const displayImages = useMemo(
+    () => (isClient ? shuffle(images) : images),
+    [isClient, images]
+  )
 
   const close = useCallback(() => setSelectedIndex(null), [])
   const prev = useCallback(() => {
@@ -65,17 +59,20 @@ export function ImageGridWithLightbox({
 
         {/* Mobile: Horizontal Scroll, Desktop: 3x3 Grid */}
         <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto snap-x pb-4 md:pb-0 scrollbar-hide">
-          {displayImages.map((src, i) => (
+          {displayImages.map((image, i) => (
             <div
-              key={`${src}-${i}`}
+              key={image.src}
               className="flex-shrink-0 w-64 md:w-auto snap-center aspect-video rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-white/20 transition-all hover:scale-[1.02]"
               onClick={() => setSelectedIndex(i)}
             >
               <img
-                src={src}
+                src={image.src}
+                srcSet={image.srcset}
+                sizes={image.sizes}
                 alt={`${title} ${i + 1}`}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           ))}
@@ -84,7 +81,7 @@ export function ImageGridWithLightbox({
 
       {/* Lightbox Overlay */}
       {selectedIndex !== null &&
-        mounted &&
+        isClient &&
         createPortal(
           <div
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
@@ -118,7 +115,7 @@ export function ImageGridWithLightbox({
               </button>
 
               <img
-                src={displayImages[selectedIndex]}
+                src={displayImages[selectedIndex].full}
                 alt={`${title} ${selectedIndex + 1}`}
                 className="w-full max-h-[85vh] object-contain rounded-xl"
               />

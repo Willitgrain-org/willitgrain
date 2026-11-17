@@ -1,23 +1,31 @@
+import { SHOP_ENABLED } from '@/lib/features';
+import { localizePath, type Lang } from '@/lib/i18n';
+
 export function Header({
   lang = 'en',
   currentProjectSlug,
   isAboutPage = false,
+  isShopPage = false,
+  paths,
 }: {
-  lang?: 'en' | 'de';
+  lang?: Lang;
   currentProjectSlug?: string;
   isAboutPage?: boolean;
+  isShopPage?: boolean;
+  /** Explicit EN/DE URLs for pages whose paths differ per language */
+  paths?: { en: string; de: string };
 }) {
-  const enLink = isAboutPage
-    ? '/about'
-    : currentProjectSlug
-      ? `/${currentProjectSlug}`
-      : '/';
+  // Same page in the other language (for the EN/DE switcher)
+  const currentPath = isShopPage
+    ? '/shop'
+    : isAboutPage
+      ? '/about'
+      : currentProjectSlug
+        ? `/${currentProjectSlug}`
+        : '/';
 
-  const deLink = isAboutPage
-    ? '/de/about'
-    : currentProjectSlug
-      ? `/de/${currentProjectSlug}`
-      : '/de';
+  const enLink = paths?.en ?? localizePath(currentPath, 'en');
+  const deLink = paths?.de ?? localizePath(currentPath, 'de');
 
   return (
     <header className="relative z-10 flex flex-col justify-between p-6 px-10 text-foreground animate-fade-up delay-100 md:flex-row md:items-center">
@@ -65,6 +73,25 @@ export function Header({
       {/* Right side / Navigation */}
       <div className="flex flex-1 items-center justify-center gap-6 md:justify-end md:gap-8">
         <nav className="flex items-center gap-6 text-sm font-medium uppercase tracking-[0.1em] md:gap-8 md:text-base">
+          {SHOP_ENABLED && (
+            <a
+              href={localizePath('/shop', lang)}
+              className="opacity-70 transition-opacity hover:opacity-100"
+            >
+              Shop
+            </a>
+          )}
+          {SHOP_ENABLED && isShopPage && (
+            <button
+              className="snipcart-checkout opacity-70 transition-opacity hover:opacity-100"
+              aria-label="Cart"
+            >
+              {lang === 'en' ? 'Cart' : 'Warenkorb'}{' '}
+              <span className="snipcart-items-count ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs">
+                0
+              </span>
+            </button>
+          )}
           <a
             href={lang === 'en' ? '/about' : '/de/about'}
             className="opacity-70 transition-opacity hover:opacity-100"

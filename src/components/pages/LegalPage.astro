@@ -1,0 +1,49 @@
+---
+/**
+ * Imprint / privacy policy. The texts live as Markdown in src/legal/
+ * (imprint.de.md, privacy.en.md, …) so they can be edited without touching code.
+ */
+import Layout from '@/layouts/main.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import type { Lang } from '@/lib/i18n';
+import { LEGAL_PATHS, type LegalPageKind } from '@/lib/legal';
+
+import * as ImprintEn from '@/legal/imprint.en.md';
+import * as ImprintDe from '@/legal/imprint.de.md';
+import * as PrivacyEn from '@/legal/privacy.en.md';
+import * as PrivacyDe from '@/legal/privacy.de.md';
+
+interface Props {
+  kind: LegalPageKind;
+  lang: Lang;
+}
+
+const { kind, lang } = Astro.props;
+
+const pages = {
+  imprint: {
+    en: { title: 'Imprint', Content: ImprintEn.Content },
+    de: { title: 'Impressum', Content: ImprintDe.Content },
+  },
+  privacy: {
+    en: { title: 'Privacy Policy', Content: PrivacyEn.Content },
+    de: { title: 'Datenschutzerklärung', Content: PrivacyDe.Content },
+  },
+};
+
+const { title, Content } = pages[kind][lang];
+---
+
+<Layout lang={lang} title={`${title} | WILLIT GRAIN`}>
+  <Header lang={lang} paths={LEGAL_PATHS[kind]} client:load />
+
+  <main class="relative z-10 mx-auto flex min-h-screen w-full max-w-[900px] flex-col px-4 pt-28 pb-24 text-white md:px-8 md:pt-32">
+    <article class="legal animate-fade-up rounded-3xl border border-white/10 p-6 md:p-10">
+      <h1 class="font-heading mb-8 text-3xl break-words hyphens-auto drop-shadow-lg md:mb-10 md:text-5xl">{title}</h1>
+      <Content />
+    </article>
+  </main>
+
+  <Footer lang={lang} client:load />
+</Layout>

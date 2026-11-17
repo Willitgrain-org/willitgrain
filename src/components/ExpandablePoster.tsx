@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { XIcon, Maximize2 } from 'lucide-react';
+import type { ResponsiveImage } from '@/lib/images';
 
 interface ExpandablePosterProps {
-  src: string;
+  image: ResponsiveImage;
   alt: string;
 }
 
-export function ExpandablePoster({ src, alt }: ExpandablePosterProps) {
+export function ExpandablePoster({ image, alt }: ExpandablePosterProps) {
+  // Only ever true after a click, i.e. on the client – so the portal below is
+  // never rendered during SSR.
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -31,7 +29,9 @@ export function ExpandablePoster({ src, alt }: ExpandablePosterProps) {
         onClick={() => setIsOpen(true)}
       >
         <img
-          src={src}
+          src={image.src}
+          srcSet={image.srcset}
+          sizes={image.sizes}
           alt={alt}
           className="w-full h-full md:h-auto object-cover md:object-contain md:rounded-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] border-y border-white/5 md:border"
         />
@@ -45,17 +45,18 @@ export function ExpandablePoster({ src, alt }: ExpandablePosterProps) {
         </div>
       </div>
 
-      {isOpen && mounted && createPortal(
+      {isOpen && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setIsOpen(false)}>
           <div className="relative w-full max-w-4xl max-h-full flex flex-col items-center justify-center backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl p-2 md:p-4 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <button 
               className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white shrink-0 text-black p-3 md:p-4 rounded-full shadow-xl hover:scale-110 transition-transform z-10"
               onClick={() => setIsOpen(false)}
+              aria-label="Close"
             >
               <XIcon className="w-5 h-5 md:w-6 md:h-6" />
             </button>
-            <img 
-              src={src} 
+            <img
+              src={image.full}
               alt={alt} 
               className="w-full max-h-[85vh] object-contain rounded-xl"
             />
