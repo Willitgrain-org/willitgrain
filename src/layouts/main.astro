@@ -1,30 +1,80 @@
 ---
 import "@/styles/global.css"
 import { SHOP_ENABLED } from "@/lib/features"
+import type { Lang } from "@/lib/i18n"
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo"
 
 interface Props {
-  lang?: "en" | "de"
+  lang?: Lang
   title?: string
+  /** Meta description (search snippet + social preview text) */
+  description?: string
+  /** Social preview image: site path (e.g. from socialImagePath()) */
+  image?: string
+  imageAlt?: string
+  /** og:type, "website" by default */
+  type?: "website" | "article" | "video.movie" | "profile"
+  /** EN/DE URLs of this page, if they don't follow the "/x" ↔ "/de/x" pattern */
+  paths?: { en: string; de: string }
+  /** Structured data (schema.org nodes, without @context) */
+  jsonLd?: Record<string, unknown>[]
 }
 
-const { lang = "en", title = "WILLIT GRAIN" } = Astro.props
+const {
+  lang = "en",
+  title = SITE_NAME,
+  description = SITE_DESCRIPTION[lang],
+  image = DEFAULT_OG_IMAGE,
+  imageAlt = SITE_NAME,
+  type = "website",
+  paths,
+  jsonLd = [],
+} = Astro.props
+
+// Fall back to the production domain so absolute URLs are never relative
+const site = Astro.site ?? new URL("https://willitgrain.com")
+const abs = (path: string) => new URL(path, site).href
+const pathname = Astro.url.pathname
+
+// Same page in both languages (hreflang)
+const enPath = paths?.en ?? (pathname.startsWith("/de/") ? pathname.slice(3) : pathname === "/de" ? "/" : pathname)
+const dePath = paths?.de ?? (enPath === "/" ? "/de/" : `/de${enPath}`)
+const ogLocale = { en: "en_US", de: "de_DE" }
+
+const structuredData =
+  jsonLd.length > 0 ? JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }) : null
 ---
 
 <html lang={lang} class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta
-      name="description"
-      content="films with texture"
-    />
     <title>{title}</title>
-    {
-      Astro.site && (
-        <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-      )
-    }
+    <meta name="description" content={description} />
+    <link rel="canonical" href={abs(pathname)} />
+    <link rel="alternate" hreflang="en" href={abs(enPath)} />
+    <link rel="alternate" hreflang="de" href={abs(dePath)} />
+    <link rel="alternate" hreflang="x-default" href={abs(enPath)} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={abs(pathname)} />
+    <meta property="og:image" content={abs(image)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    <meta property="og:locale:alternate" content={ogLocale[lang === "en" ? "de" : "en"]} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {structuredData && <script is:inline type="application/ld+json" set:html={structuredData} />}
 
     {
       SHOP_ENABLED && (
@@ -47,11 +97,11 @@ const { lang = "en", title = "WILLIT GRAIN" } = Astro.props
       <div class="grain grain--fine" />
     </div>
 
-    <main
+    <div
       class="relative z-10 flex min-h-screen w-full flex-col pt-[4vh] pb-[4vh]"
     >
       <slot />
-    </main>
+    </div>
 
     {
       SHOP_ENABLED && (

@@ -59,7 +59,7 @@ export function Header({
       {/* Center / Logo */}
       <div className="my-4 flex flex-1 justify-center text-center md:my-0">
         <a
-          href={lang === 'en' ? '/' : '/de'}
+          href={localizePath('/', lang)}
           className="inline-block transition-transform hover:scale-105"
         >
           <img
@@ -93,7 +93,7 @@ export function Header({
             </button>
           )}
           <a
-            href={lang === 'en' ? '/about' : '/de/about'}
+            href={localizePath('/about', lang)}
             className="opacity-70 transition-opacity hover:opacity-100"
           >
             {lang === 'en' ? 'About' : 'Über uns'}

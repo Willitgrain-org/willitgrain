@@ -7,7 +7,8 @@ import { Footer } from '@/components/Footer';
 import { getCollection } from 'astro:content';
 import { getProjectPreview } from '@/lib/projectImages';
 import { getResponsiveImage, IMAGE_PRESETS } from '@/lib/images';
-import type { Lang } from '@/lib/i18n';
+import { localizePath, type Lang } from '@/lib/i18n';
+import { organizationJsonLd, SITE_DESCRIPTION } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -15,9 +16,9 @@ interface Props {
 
 const { lang } = Astro.props;
 
-const title = {
-  en: undefined, // Layout default
-  de: 'WILLIT GRAIN - Filmproduktion',
+const t = {
+  en: { title: 'WILLIT GRAIN – Film Production', heading: 'WILLIT GRAIN – Film Production Company' },
+  de: { title: 'WILLIT GRAIN – Filmproduktion', heading: 'WILLIT GRAIN – Filmproduktion' },
 }[lang];
 
 const allProjects = await getCollection('projects');
@@ -34,10 +35,35 @@ const projects: HomeProject[] = await Promise.all(
     };
   })
 );
+
+const site = Astro.site!;
+const jsonLd = [
+  organizationJsonLd(site),
+  {
+    '@type': 'WebSite',
+    '@id': new URL('/#website', site).href,
+    url: new URL('/', site).href,
+    name: 'WILLIT GRAIN',
+    inLanguage: lang,
+    publisher: { '@id': new URL('/#organization', site).href },
+  },
+  {
+    '@type': 'ItemList',
+    itemListElement: projects.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: new URL(localizePath(`/${p.slug}`, lang), site).href,
+      name: p.title,
+    })),
+  },
+];
 ---
 
-<Layout lang={lang} title={title}>
+<Layout lang={lang} title={t.title} description={SITE_DESCRIPTION[lang]} jsonLd={jsonLd}>
   <Header lang={lang} client:load />
-  <HomeGallery lang={lang} projects={projects} client:load />
+  <main class="flex flex-1 flex-col">
+    <h1 class="sr-only">{t.heading}</h1>
+    <HomeGallery lang={lang} projects={projects} client:load />
+  </main>
   <Footer lang={lang} client:load />
 </Layout>

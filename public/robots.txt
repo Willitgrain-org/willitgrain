@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /keystatic
+Disallow: /api/
+
+Sitemap: https://willitgrain.com/sitemap-index.xml

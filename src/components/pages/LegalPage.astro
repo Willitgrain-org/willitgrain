@@ -33,9 +33,20 @@ const pages = {
 };
 
 const { title, Content } = pages[kind][lang];
+
+const description = {
+  imprint: {
+    en: 'Imprint of Willit Grain GmbH, film production company in Schwabhausen near Munich.',
+    de: 'Impressum der Willit Grain GmbH, Filmproduktion in Schwabhausen bei München.',
+  },
+  privacy: {
+    en: 'Privacy policy of Willit Grain GmbH: which data this website processes and why.',
+    de: 'Datenschutzerklärung der Willit Grain GmbH: welche Daten diese Website verarbeitet und warum.',
+  },
+}[kind][lang];
 ---
 
-<Layout lang={lang} title={`${title} | WILLIT GRAIN`}>
+<Layout lang={lang} title={`${title} | WILLIT GRAIN`} description={description} paths={LEGAL_PATHS[kind]}>
   <Header lang={lang} paths={LEGAL_PATHS[kind]} client:load />
 
   <main class="relative z-10 mx-auto flex min-h-screen w-full max-w-[900px] flex-col px-4 pt-28 pb-24 text-white md:px-8 md:pt-32">

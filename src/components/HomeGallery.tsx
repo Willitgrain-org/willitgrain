@@ -22,46 +22,43 @@ export function HomeGallery({
   lang?: Lang
   projects?: HomeProject[]
 }) {
-  // The order is randomized on every page load, so the gallery is only shown
-  // once we are on the client (the server render has no meaningful order).
+  // The order is randomized on every page load. The server render keeps the
+  // original order (so crawlers see all project links in the HTML) but stays
+  // invisible until the client has shuffled, so visitors never see it jump.
   const isClient = useIsClient()
 
   const cards = useMemo(
     () =>
-      isClient
-        ? shuffle(projects).map((p) => ({
-            href: localizePath(`/${p.slug}`, lang),
-            image: p.image?.src ?? "",
-            srcSet: p.image?.srcset,
-            sizes: p.image?.sizes,
-            title: p.title,
-            description: p.synopsis,
-            label: p.genre,
-            color: "#121212", // Dark fallback background
-          }))
-        : [],
+      (isClient ? shuffle(projects) : projects).map((p) => ({
+        href: localizePath(`/${p.slug}`, lang),
+        image: p.image?.src ?? "",
+        srcSet: p.image?.srcset,
+        sizes: p.image?.sizes,
+        title: p.title,
+        description: p.synopsis,
+        label: p.genre,
+        color: "#121212", // Dark fallback background
+      })),
     [isClient, lang, projects]
   )
 
   return (
     <section
-      className={`px-6 py-12 md:px-12 flex-1 w-full max-w-[1600px] mx-auto z-10 relative flex flex-col justify-center transition-opacity duration-1000 ${isClient ? "opacity-100" : "opacity-0"}`}
+      className={`relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-center px-6 py-12 transition-opacity duration-1000 md:px-12 ${isClient ? "opacity-100" : "opacity-0"}`}
     >
-      {isClient && (
-        <MagicBento
-          cards={cards}
-          textAutoHide={true}
-          enableStars={false}
-          enableSpotlight={false}
-          enableBorderGlow={true}
-          enableMagnetism={false}
-          clickEffect
-          spotlightRadius={540}
-          particleCount={12}
-          glowColor="255, 255, 255" // White/silver glow suits film posters
-          disableAnimations={false}
-        />
-      )}
+      <MagicBento
+        cards={cards}
+        textAutoHide={true}
+        enableStars={false}
+        enableSpotlight={false}
+        enableBorderGlow={true}
+        enableMagnetism={false}
+        clickEffect
+        spotlightRadius={540}
+        particleCount={12}
+        glowColor="255, 255, 255" // White/silver glow suits film posters
+        disableAnimations={false}
+      />
     </section>
   )
 }

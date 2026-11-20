@@ -5,6 +5,7 @@ import { defineConfig } from "astro/config"
 import react from "@astrojs/react"
 import keystatic from "@keystatic/astro"
 import netlify from "@astrojs/netlify"
+import sitemap from "@astrojs/sitemap"
 import { SHOP_ENABLED } from "./src/lib/features"
 
 /**
@@ -31,6 +32,12 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [react(), keystatic(), shop()],
+  integrations: [
+    react(),
+    keystatic(),
+    shop(),
+    // hreflang alternates are set per page in the layout (DE legal URLs differ from EN)
+    sitemap({ filter: (page) => !page.includes("/keystatic") }),
+  ],
   adapter: netlify(),
 })

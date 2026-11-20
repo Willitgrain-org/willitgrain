@@ -16,7 +16,8 @@ import { getTrailerEmbedUrl } from '@/lib/trailer';
 import TrailerEmbed from '@/components/TrailerEmbed.astro';
 import { parseCrew } from '@/lib/utils';
 import { longestWordEm } from '@/lib/titleFit';
-import type { Lang } from '@/lib/i18n';
+import { localizePath, type Lang } from '@/lib/i18n';
+import { organizationJsonLd, runtimeToIso, socialImagePath, truncate } from '@/lib/seo';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -35,7 +36,7 @@ const t = {
     trailer: (title: string) => `${title} Trailer`,
   },
   de: {
-    home: '/de',
+    home: '/de/',
     back: 'Zurück zur Übersicht',
     project: 'Projekt',
     trailer: (title: string) => `${title} – Trailer`,
@@ -56,11 +57,47 @@ const trailerEmbed = getTrailerEmbedUrl(data.trailerUrl);
 const trailerStill = getProjectPreview(project.id) ?? getProjectImages(project.id, 'stills')[0] ?? data.posterUrl;
 const trailerImage =
   trailerEmbed && trailerStill ? await getResponsiveImage(trailerStill, IMAGE_PRESETS.wide) : null;
+// --- SEO ---
+const typeGenre = [text.type, text.genre].filter(Boolean).join(', ');
+const pageTitle = `${title || t.project}${typeGenre ? ` – ${typeGenre}` : ''} | WILLIT GRAIN`;
+const description = truncate(text.synopsis || `${title} – ${typeGenre}`);
+const socialSrc = getProjectPreview(project.id) ?? getProjectImages(project.id, 'stills')[0] ?? data.posterUrl;
+const socialImage = socialSrc ? socialImagePath(socialSrc) : undefined;
+
+const site = Astro.site!;
+const roleOf = (re: RegExp) => crew.filter((c) => re.test(c.role)).flatMap((c) => c.name.split(/,\s*/));
+const people = (names: string[]) =>
+  names.length ? names.map((name) => ({ '@type': 'Person', name })) : undefined;
+const movie = {
+  '@type': 'Movie',
+  '@id': new URL(`${localizePath(`/${project.id}`, lang)}#movie`, site).href,
+  name: title,
+  url: new URL(localizePath(`/${project.id}`, lang), site).href,
+  description: text.synopsis || undefined,
+  genre: text.genre || undefined,
+  duration: runtimeToIso(data.runtime),
+  image: data.posterUrl ? new URL(data.posterUrl, site).href : socialImage ? new URL(socialImage, site).href : undefined,
+  director: people(roleOf(/^(directed by|director|regie)$/i)),
+  author: people(roleOf(/^(writers?|screenplay|drehbuch)$/i)),
+  producer: people(roleOf(/^(producers?|produzent(en|in)?)$/i)),
+  productionCompany: { '@id': new URL('/#organization', site).href },
+  sameAs: [data.filmfreewayUrl, data.crewUnitedUrl].filter(Boolean),
+};
+const jsonLd = [organizationJsonLd(site), movie];
+
 const linkClass =
   'text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/80 hover:text-white transition-all backdrop-blur-md bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg';
 ---
 
-<Layout title={title} lang={lang}>
+<Layout
+  title={pageTitle}
+  lang={lang}
+  description={description}
+  image={socialImage}
+  imageAlt={title}
+  type="video.movie"
+  jsonLd={jsonLd}
+>
   <Header lang={lang} client:load currentProjectSlug={project.id} />
 
   <main class="relative z-10 flex flex-col w-full min-h-screen pt-28 md:pt-32 pb-24 text-white px-4 md:px-8 xl:px-12 mx-auto max-w-[1600px]">
@@ -91,12 +128,12 @@ const linkClass =
 
             {/* Font size shrinks so the longest word always fits the column */}
             <div class="@container">
-              <h2
+              <h1
                 class="project-title font-heading mb-4 md:mb-6 leading-tight drop-shadow-lg break-words"
                 style={`--title-em: ${longestWordEm(title || 'TBA')}`}
               >
                 {title || 'TBA'}
-              </h2>
+              </h1>
             </div>
 
             <p class="text-sm md:text-lg text-white/80 leading-relaxed font-sans font-light mb-6 pr-2">
@@ -126,7 +163,7 @@ const linkClass =
               style="mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);"
             >
               <div class="w-full h-full">
-                <ExpandablePoster client:load image={poster} alt={title || 'Poster'} />
+                <ExpandablePoster client:load image={poster} alt={`${title || t.project} – Poster`} />
               </div>
             </div>
           )}
@@ -134,7 +171,7 @@ const linkClass =
 
         {poster && (
           <div class="hidden md:flex justify-center border border-white/10 rounded-3xl p-4 lg:p-8">
-            <ExpandablePoster client:load image={poster} alt={title || 'Poster'} />
+            <ExpandablePoster client:load image={poster} alt={`${title || t.project} – Poster`} />
           </div>
         )}
       </div>
@@ -186,9 +223,9 @@ const linkClass =
           )}
         </div>
 
-        <ImageGridWithLightbox client:load title="Stills" images={stills} />
+        <ImageGridWithLightbox client:load title="Stills" altPrefix={title} images={stills} />
 
-        <ImageGridWithLightbox client:load title="Behind The Scenes" images={bts} />
+        <ImageGridWithLightbox client:load title="Behind The Scenes" altPrefix={title} images={bts} />
       </div>
     </div>
   </main>

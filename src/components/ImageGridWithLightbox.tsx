@@ -8,12 +8,16 @@ import { useIsClient } from "@/lib/useIsClient"
 interface ImageGridWithLightboxProps {
   images: ResponsiveImage[]
   title: string
+  /** Prefix for the alt texts, e.g. the project title ("KNÖLLCHEN – Stills 1") */
+  altPrefix?: string
 }
 
 export function ImageGridWithLightbox({
   images,
   title,
+  altPrefix,
 }: ImageGridWithLightboxProps) {
+  const alt = (n: number) => `${altPrefix ? `${altPrefix} – ` : ""}${title} ${n}`
   const isClient = useIsClient()
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
@@ -53,9 +57,9 @@ export function ImageGridWithLightbox({
   return (
     <>
       <div className="border border-white/10 rounded-3xl p-6 md:p-10">
-        <h3 className="font-mono text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold">
+        <h2 className="font-mono text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold">
           {title}
-        </h3>
+        </h2>
 
         {/* Mobile: Horizontal Scroll, Desktop: 3x3 Grid */}
         <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto snap-x pb-4 md:pb-0 scrollbar-hide">
@@ -69,7 +73,7 @@ export function ImageGridWithLightbox({
                 src={image.src}
                 srcSet={image.srcset}
                 sizes={image.sizes}
-                alt={`${title} ${i + 1}`}
+                alt={alt(i + 1)}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
@@ -116,7 +120,7 @@ export function ImageGridWithLightbox({
 
               <img
                 src={displayImages[selectedIndex].full}
-                alt={`${title} ${selectedIndex + 1}`}
+                alt={alt(selectedIndex + 1)}
                 className="w-full max-h-[85vh] object-contain rounded-xl"
               />
             </div>
